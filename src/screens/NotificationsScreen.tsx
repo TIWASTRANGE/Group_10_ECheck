@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { View, Text, TextInput, StyleSheet, FlatList } from "react-native"
 import Header from "../components/Header"
 import BottomNavigation from "../components/BottomNavigation"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 interface Notification {
   id: string
@@ -60,18 +61,18 @@ const NotificationsScreen = () => {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case "power_cut":
-        return "⚡"
+        return "bolt"
       case "bill":
-        return "📄"
+        return "file-text-o"
       default:
-        return "🔔"
+        return "bell"
     }
   }
 
   const renderNotificationItem = ({ item }: { item: Notification }) => (
     <View style={styles.notificationCard}>
       <View style={styles.notificationHeader}>
-        <Text style={styles.iconText}>{getNotificationIcon(item.type)}</Text>
+        <Icon name={getNotificationIcon(item.type)} size={20} color="#2E7D32" style={styles.iconText} />
         <Text style={styles.dateText}>{item.date}</Text>
       </View>
 
@@ -106,15 +107,18 @@ const NotificationsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Notification" />
+      <Header title="Notification" showNotification={false} />
 
       <View style={styles.content}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search notifications..."
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-        />
+        <View style={styles.searchContainer}>
+          <Icon name="search" size={16} color="#757575" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search notifications..."
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+          />
+        </View>
 
         <FlatList
           data={filteredNotifications}
@@ -139,13 +143,21 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  searchBar: {
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#E0E0E0",
     borderRadius: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
     marginBottom: 16,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchBar: {
+    flex: 1,
+    paddingVertical: 12,
     fontSize: 16,
   },
   listContainer: {
@@ -165,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   iconText: {
-    fontSize: 24,
+    marginRight: 8,
   },
   dateText: {
     fontSize: 14,

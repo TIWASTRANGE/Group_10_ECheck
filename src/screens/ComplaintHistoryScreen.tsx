@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { View, Text, TextInput, StyleSheet, FlatList } from "react-native"
 import Header from "../components/Header"
 import BottomNavigation from "../components/BottomNavigation"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 interface Complaint {
   id: string
@@ -65,11 +66,25 @@ const ComplaintHistoryScreen = () => {
     }
   }
 
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "Active":
+        return "clock-o"
+      case "Resolved":
+        return "check-circle"
+      case "Pending":
+        return "exclamation-circle"
+      default:
+        return "question-circle"
+    }
+  }
+
   const renderComplaintItem = ({ item }: { item: Complaint }) => (
     <View style={styles.complaintCard}>
       <View style={styles.complaintHeader}>
         <Text style={styles.complaintId}>Complaint id</Text>
         <View style={[styles.statusChip, { backgroundColor: getStatusColor(item.status) }]}>
+          <Icon name={getStatusIcon(item.status)} size={12} color="#FFFFFF" style={styles.statusIcon} />
           <Text style={styles.statusText}>{item.status}</Text>
         </View>
       </View>
@@ -90,15 +105,18 @@ const ComplaintHistoryScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="History" />
+      <Header title="History" showBackButton={false} />
 
       <View style={styles.content}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search complaints..."
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-        />
+        <View style={styles.searchContainer}>
+          <Icon name="search" size={16} color="#757575" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search complaints..."
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+          />
+        </View>
 
         <FlatList
           data={filteredComplaints}
@@ -123,13 +141,21 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  searchBar: {
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#E0E0E0",
     borderRadius: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
     marginBottom: 16,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchBar: {
+    flex: 1,
+    paddingVertical: 12,
     fontSize: 16,
   },
   listContainer: {
@@ -156,6 +182,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  statusIcon: {
+    marginRight: 4,
   },
   statusText: {
     color: "#FFFFFF",

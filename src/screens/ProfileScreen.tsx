@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 import { useNavigation } from "@react-navigation/native"
 import Header from "../components/Header"
 import BottomNavigation from "../components/BottomNavigation"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 const ProfileScreen = () => {
   const navigation = useNavigation()
@@ -23,37 +24,37 @@ const ProfileScreen = () => {
     {
       id: "account",
       title: "Account",
-      icon: "👤",
+      icon: "user",
       onPress: () => navigation.navigate("Account" as never),
     },
     {
       id: "change-email",
       title: "Change Email Address",
-      icon: "📧",
+      icon: "envelope",
       onPress: () => navigation.navigate("ChangeEmail" as never),
     },
     {
       id: "change-password",
       title: "Change Password",
-      icon: "🔒",
+      icon: "lock",
       onPress: () => navigation.navigate("ChangePassword" as never),
     },
     {
       id: "more-settings",
       title: "More Settings",
-      icon: "⚙️",
+      icon: "cog",
       onPress: () => console.log("More Settings"),
     },
     {
       id: "account-security",
       title: "Account Security",
-      icon: "🛡️",
+      icon: "shield",
       onPress: () => navigation.navigate("AccountSecurity" as never),
     },
     {
       id: "customer-support",
       title: "Customer Support",
-      icon: "🎧",
+      icon: "headphones",
       onPress: () => console.log("Customer Support"),
     },
   ]
@@ -69,10 +70,10 @@ const ProfileScreen = () => {
       <View style={styles.optionCard}>
         <View style={styles.optionRow}>
           <View style={styles.optionLeft}>
-            <Text style={styles.optionIcon}>{option.icon}</Text>
+            <Icon name={option.icon} size={20} color="#2E7D32" style={styles.optionIcon} />
             <Text style={styles.optionText}>{option.title}</Text>
           </View>
-          <Text style={styles.chevron}>›</Text>
+          <Icon name="chevron-right" size={16} color="#757575" />
         </View>
       </View>
     </TouchableOpacity>
@@ -80,7 +81,7 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header title="Profile" />
+      <Header title="Profile" showBackButton={false} />
 
       <ScrollView style={styles.content}>
         {/* Profile Header */}
@@ -99,9 +100,11 @@ const ProfileScreen = () => {
           {/* QR Code Section */}
           <View style={styles.qrSection}>
             <TouchableOpacity style={styles.qrButton}>
+              <Icon name="qrcode" size={16} color="#2E7D32" style={styles.qrIcon} />
               <Text style={styles.qrButtonText}>Soon QR</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.qrButton}>
+              <Icon name="qrcode" size={16} color="#2E7D32" style={styles.qrIcon} />
               <Text style={styles.qrButtonText}>My QR</Text>
             </TouchableOpacity>
           </View>
@@ -112,6 +115,7 @@ const ProfileScreen = () => {
 
         {/* Logout Button */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Icon name="sign-out" size={18} color="#FFFFFF" style={styles.logoutIcon} />
           <Text style={styles.logoutButtonText}>Log out</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -183,6 +187,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 8,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  qrIcon: {
+    marginRight: 6,
   },
   qrButtonText: {
     color: "#2E7D32",
@@ -208,28 +217,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   optionIcon: {
-    fontSize: 20,
     marginRight: 12,
   },
   optionText: {
     fontSize: 16,
     color: "#212121",
   },
-  chevron: {
-    fontSize: 20,
-    color: "#757575",
-  },
   logoutButton: {
     backgroundColor: "#F44336",
     paddingVertical: 15,
     borderRadius: 8,
     marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logoutIcon: {
+    marginRight: 8,
   },
   logoutButtonText: {
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "bold",
-    textAlign: "center",
   },
 })
 

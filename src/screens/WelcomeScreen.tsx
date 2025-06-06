@@ -1,24 +1,30 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import type { StackNavigationProp } from "@react-navigation/stack"
+import Icon from "react-native-vector-icons/FontAwesome"
+import type { RootStackParamList } from "../types/navigation"
+
+type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Welcome">
 
 const WelcomeScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<WelcomeScreenNavigationProp>()
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         {/* TODO: Add actual illustration image here */}
         <View style={styles.illustrationContainer}>
-          <Text style={styles.illustrationText}>💡</Text>
+          <Icon name="bolt" size={60} color="#2E7D32" />
           <Text style={styles.illustrationSubtext}>Electricity Monitoring</Text>
         </View>
 
-        <Text style={styles.title}>UnitsReload</Text>
+        <Text style={styles.title}>ECheck</Text>
         <Text style={styles.subtitle}>Know your credit, secure your future.</Text>
         <Text style={styles.description}>Save money to save future</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Login" as never)}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Login")}>
           <Text style={styles.buttonText}>Get Started</Text>
+          <Icon name="arrow-right" size={16} color="#FFFFFF" style={styles.buttonIcon} />
         </TouchableOpacity>
       </View>
     </View>
@@ -44,9 +50,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
-  },
-  illustrationText: {
-    fontSize: 60,
   },
   illustrationSubtext: {
     fontSize: 14,
@@ -79,12 +82,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 8,
     width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "bold",
-    textAlign: "center",
+    marginRight: 8,
+  },
+  buttonIcon: {
+    marginLeft: 4,
   },
 })
 

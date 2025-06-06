@@ -18,6 +18,7 @@ import AccountScreen from "./src/screens/AccountScreen"
 import ChangeEmailScreen from "./src/screens/ChangeEmailScreen"
 import ChangePasswordScreen from "./src/screens/ChangePasswordScreen"
 import AccountSecurityScreen from "./src/screens/AccountSecurityScreen"
+import SubmitReadingScreen from "./src/screens/SubmitReadingScreen"
 
 const Stack = createStackNavigator()
 
@@ -33,9 +34,9 @@ const App = () => {
           }}
         >
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="OTP" component={OTPScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="ReportOutage" component={ReportOutageScreen} />
           <Stack.Screen name="Readings" component={ReadingsScreen} />
@@ -47,6 +48,7 @@ const App = () => {
           <Stack.Screen name="ChangeEmail" component={ChangeEmailScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
           <Stack.Screen name="AccountSecurity" component={AccountSecurityScreen} />
+          <Stack.Screen name="SubmitReading" component={SubmitReadingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

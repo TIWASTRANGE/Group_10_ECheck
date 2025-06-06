@@ -3,9 +3,14 @@
 import { useState } from "react"
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import type { StackNavigationProp } from "@react-navigation/stack"
+import Icon from "react-native-vector-icons/FontAwesome"
+import type { RootStackParamList } from "../types/navigation"
+
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, "Login">
 
 const LoginScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<LoginScreenNavigationProp>()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -17,7 +22,7 @@ const LoginScreen = () => {
     // }
 
     // For now, navigate directly to Home
-    navigation.navigate("Home" as never)
+    navigation.navigate("Home")
   }
 
   const handleSocialLogin = (provider: string) => {
@@ -28,14 +33,14 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>UnitsReload</Text>
+        <Text style={styles.title}>ECheck</Text>
 
         <View style={styles.formContainer}>
           <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
-            <Text style={styles.primaryButtonText}>Ingia</Text>
+            <Text style={styles.primaryButtonText}>Login</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Register" as never)}>
+          <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Register")}>
             <Text style={styles.secondaryButtonText}>Create New Account</Text>
           </TouchableOpacity>
 
@@ -43,10 +48,10 @@ const LoginScreen = () => {
 
           <View style={styles.socialContainer}>
             <TouchableOpacity style={styles.socialButton} onPress={() => handleSocialLogin("Google")}>
-              <Text style={styles.socialButtonText}>G</Text>
+              <Icon name="google" size={20} color="#DB4437" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton} onPress={() => handleSocialLogin("Facebook")}>
-              <Text style={styles.socialButtonText}>F</Text>
+              <Icon name="facebook" size={20} color="#4267B2" />
             </TouchableOpacity>
           </View>
         </View>
@@ -117,11 +122,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     justifyContent: "center",
     alignItems: "center",
-  },
-  socialButtonText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#2E7D32",
   },
 })
 

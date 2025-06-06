@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity } from "react-native"
 import Header from "../components/Header"
 import BottomNavigation from "../components/BottomNavigation"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 interface HelpItem {
   id: string
@@ -67,26 +68,34 @@ const HelpScreen = () => {
     <TouchableOpacity onPress={() => toggleExpanded(item.id)}>
       <View style={styles.helpCard}>
         <View style={styles.questionRow}>
+          <Icon name="question-circle" size={18} color="#2E7D32" style={styles.questionIcon} />
           <Text style={styles.questionText}>{item.question}</Text>
-          <Text style={styles.expandIcon}>{expandedItem === item.id ? "−" : "+"}</Text>
+          <Icon name={expandedItem === item.id ? "chevron-up" : "chevron-down"} size={16} color="#2E7D32" />
         </View>
 
-        {expandedItem === item.id && <Text style={styles.answerText}>{item.answer}</Text>}
+        {expandedItem === item.id && (
+          <View style={styles.answerContainer}>
+            <Text style={styles.answerText}>{item.answer}</Text>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   )
 
   return (
     <View style={styles.container}>
-      <Header title="Help" />
+      <Header title="Help" showBackButton={false} />
 
       <View style={styles.content}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search help topics..."
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-        />
+        <View style={styles.searchContainer}>
+          <Icon name="search" size={16} color="#757575" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search help topics..."
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+          />
+        </View>
 
         <FlatList
           data={filteredItems}
@@ -111,13 +120,21 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  searchBar: {
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#E0E0E0",
     borderRadius: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
     marginBottom: 16,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchBar: {
+    flex: 1,
+    paddingVertical: 12,
     fontSize: 16,
   },
   listContainer: {
@@ -135,21 +152,24 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  questionIcon: {
+    marginRight: 10,
+  },
   questionText: {
     fontSize: 16,
     color: "#212121",
     fontWeight: "500",
     flex: 1,
   },
-  expandIcon: {
-    fontSize: 20,
-    color: "#2E7D32",
-    fontWeight: "bold",
+  answerContainer: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: "#E0E0E0",
   },
   answerText: {
     fontSize: 14,
     color: "#757575",
-    marginTop: 12,
     lineHeight: 20,
   },
 })

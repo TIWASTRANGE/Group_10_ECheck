@@ -2,18 +2,18 @@
 
 import { useState } from "react"
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native"
-import { useNavigation, useRoute, type RouteProp } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
+import type { StackNavigationProp } from "@react-navigation/stack"
+import type { RouteProp } from "@react-navigation/native"
 import Header from "../components/Header"
+import Icon from "react-native-vector-icons/FontAwesome"
+import type { RootStackParamList } from "../types/navigation"
 
-// Add type definition for route params
-type RootStackParamList = {
-  OTP: { phoneNumber: string }
-}
-
+type OTPScreenNavigationProp = StackNavigationProp<RootStackParamList, "OTP">
 type OTPScreenRouteProp = RouteProp<RootStackParamList, "OTP">
 
 const OTPScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<OTPScreenNavigationProp>()
   const route = useRoute<OTPScreenRouteProp>()
   const [otp, setOtp] = useState("")
 
@@ -27,7 +27,7 @@ const OTPScreen = () => {
     //   navigation.navigate('Home');
     // }
 
-    navigation.navigate("Home" as never)
+    navigation.navigate("Home")
   }
 
   const handleResendOTP = async () => {
@@ -40,22 +40,25 @@ const OTPScreen = () => {
       <Header title="OTP Verification" />
 
       <View style={styles.content}>
-        {/* TODO: Add actual person illustration */}
+        {/* User icon illustration */}
         <View style={styles.illustrationContainer}>
-          <Text style={styles.illustrationText}>👤</Text>
+          <Icon name="user-circle" size={80} color="#2E7D32" />
         </View>
 
         <Text style={styles.title}>Enter the verification code</Text>
         <Text style={styles.subtitle}>Code sent to {phoneNumber}</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Verification Code"
-          value={otp}
-          onChangeText={setOtp}
-          keyboardType="numeric"
-          maxLength={6}
-        />
+        <View style={styles.otpContainer}>
+          <Icon name="lock" size={18} color="#757575" style={styles.otpIcon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Verification Code"
+            value={otp}
+            onChangeText={setOtp}
+            keyboardType="numeric"
+            maxLength={6}
+          />
+        </View>
 
         <TouchableOpacity style={styles.button} onPress={handleVerifyOTP}>
           <Text style={styles.buttonText}>VERIFY</Text>
@@ -69,6 +72,7 @@ const OTPScreen = () => {
         </View>
 
         <TouchableOpacity style={styles.changeNumberContainer}>
+          <Icon name="phone" size={14} color="#2E7D32" style={styles.changeNumberIcon} />
           <Text style={styles.changeNumberText}>Use another mobile number</Text>
         </TouchableOpacity>
       </View>
@@ -96,9 +100,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
-  illustrationText: {
-    fontSize: 60,
-  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
@@ -112,13 +113,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 30,
   },
-  input: {
+  otpContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#E0E0E0",
     borderRadius: 8,
     paddingHorizontal: 15,
-    paddingVertical: 12,
     marginBottom: 20,
+  },
+  otpIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    paddingVertical: 12,
     fontSize: 16,
     textAlign: "center",
   },
@@ -147,7 +156,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   changeNumberContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
+  },
+  changeNumberIcon: {
+    marginRight: 6,
   },
   changeNumberText: {
     color: "#2E7D32",
