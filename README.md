@@ -1,97 +1,196 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ECheck Mobile App
 
-# Getting Started
+A React Native mobile application for monitoring electricity consumption and reporting outages in Cameroon. This simplified version uses **only React Native's built-in StyleSheet** for styling - no external UI libraries required.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ Key Features
 
-## Step 1: Start Metro
+### 🏠 Core Functionality
+- **User Registration & Authentication**: Secure login with OTP verification
+- **Real-time Monitoring**: Manual meter reading input and consumption tracking
+- **Outage Reporting**: Quick and easy power outage reporting system
+- **Complaint History**: Track all reported issues and their status
+- **Notifications**: Stay updated with power cuts and billing information
+- **Profile Management**: Complete account and security settings
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### 📱 Simple & Clean Design
+- **Native Styling**: Uses only React Native StyleSheet - no external dependencies
+- **Professional Look**: Clean, intuitive interface with consistent green theme
+- **Modular Architecture**: Reusable Header and BottomNavigation components
+- **Easy Navigation**: Back buttons and bottom tab navigation
+- **Responsive**: Works on various screen sizes
 
-To start the Metro dev server, run the following command from the root of your React Native project:
 
-```sh
-# Using npm
-npm start
+## 📁 Project Structure
 
-# OR using Yarn
-yarn start
-```
+\`\`\`
+src/
+├── components/          # Reusable components
+│   ├── Header.tsx      # Simple header with back button
+│   └── BottomNavigation.tsx  # Bottom tab navigation
+├── screens/            # All 15 application screens
+│   ├── WelcomeScreen.tsx
+│   ├── LoginScreen.tsx
+│   ├── RegisterScreen.tsx
+│   ├── OTPScreen.tsx
+│   ├── HomeScreen.tsx
+│   ├── ReportOutageScreen.tsx
+│   ├── ReadingsScreen.tsx
+│   ├── ComplaintHistoryScreen.tsx
+│   ├── NotificationsScreen.tsx
+│   ├── HelpScreen.tsx
+│   ├── ProfileScreen.tsx
+│   ├── AccountScreen.tsx
+│   ├── ChangeEmailScreen.tsx
+│   ├── ChangePasswordScreen.tsx
+│   └── AccountSecurityScreen.tsx
+\`\`\`
 
-## Step 2: Build and run your app
+## 🚀 Quick Setup
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Prerequisites
+- Node.js (>= 16.0.0)
+- React Native CLI
+- Android Studio (for Android)
+- Xcode (for iOS, macOS only)
 
-### Android
+### Installation Steps
 
-```sh
-# Using npm
-npm run android
+1. **Clone the project**
+   \`\`\`bash
+   git clone https://github.com/TIWASTRANGE/Group_10_ECheck.git
+   cd ECheck
+   \`\`\`
 
-# OR using Yarn
-yarn android
-```
+2. **Install dependencies**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-### iOS
+3. **iOS Setup** (macOS only)
+   \`\`\`bash
+   cd ios && pod install && cd ..
+   \`\`\`
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+4. **Run the app**
+   \`\`\`bash
+   # Start Metro bundler
+   npm start
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+   # Run on Android
+   npm run android
 
-```sh
-bundle install
-```
+   # Run on iOS
+   npm run ios
 
-Then, and every time you update your native dependencies, run:
+### Color Scheme
+- **Primary Green**: `#2E7D32`
+- **Secondary Green**: `#4CAF50`
+- **Error Red**: `#F44336`
+- **Text Gray**: `#757575`
+- **Background**: `#FFFFFF`
+- **Card Background**: `#F5F5F5`
 
-```sh
-bundle exec pod install
-```
+## 🔗 Backend Integration
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### API Integration Points
+The app is ready for backend integration with TODO comments throughout:
 
-```sh
-# Using npm
-npm run ios
+\`\`\`typescript
+// TODO: Implement login API call
+// const response = await loginAPI(email, password);
+// if (response.success) {
+//   navigation.navigate('Home');
+// }
+\`\`\`
 
-# OR using Yarn
-yarn ios
-```
+### Required API Endpoints
+- **Authentication**: `/api/auth/login`, `/api/auth/register`, `/api/auth/verify-otp`
+- **User Management**: `/api/user/profile`, `/api/user/update`
+- **Outage Management**: `/api/outages/report`, `/api/outages/history`
+- **Data**: `/api/readings`, `/api/notifications`
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 📱 Screen Overview
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Authentication Flow
+1. **Welcome Screen** - App introduction
+2. **Login Screen** - User login with social options
+3. **Register Screen** - New user registration
+4. **OTP Screen** - Phone verification
 
-## Step 3: Modify your app
+### Main Features
+5. **Home Screen** - Dashboard with current readings
+6. **Report Outage Screen** - Report power outages
+7. **Readings Screen** - View consumption history
+8. **Complaint History** - Track reported issues
+9. **Notifications Screen** - System notifications
 
-Now that you have successfully run the app, let's make changes!
+### User Management
+10. **Help Screen** - FAQ and support
+11. **Profile Screen** - User profile overview
+12. **Account Screen** - Edit personal information
+13. **Change Email Screen** - Update email address
+14. **Change Password Screen** - Change password
+15. **Account Security Screen** - Security settings
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Adding New Screens
+1. Create new screen in `src/screens/`
+2. Add route in `App.tsx`
+3. Update navigation calls
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### Icons
+Currently uses emojis (📱, ⚡, 👤). To use vector icons:
+1. Install `react-native-vector-icons`
+2. Replace emoji with `<Icon name="icon-name" />`
 
-## Congratulations! :tada:
+## 🐛 Troubleshooting
 
-You've successfully run and modified your React Native App. :partying_face:
+### Common Issues
+\`\`\`bash
+# Clear Metro cache
+npx react-native start --reset-cache
 
-### Now what?
+# Clean builds
+cd android && ./gradlew clean && cd ..
+cd ios && xcodebuild clean && cd ..
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+# Reinstall dependencies
+rm -rf node_modules && npm install
+\`\`\`
 
-# Troubleshooting
+### Platform-Specific
+- **Android**: Enable USB debugging, accept RSA key
+- **iOS**: Trust developer certificate, enable developer mode
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 📝 Development Notes
 
-# Learn More
+### Why This Approach?
+- **Simplicity**: No external UI library dependencies
+- **Performance**: Lighter bundle size
+- **Control**: Full control over styling
+- **Learning**: Better understanding of React Native fundamentals
+- **Maintenance**: Fewer dependencies to maintain
 
-To learn more about React Native, take a look at the following resources:
+### When to Add UI Libraries?
+Consider adding libraries like React Native Paper when:
+- You need complex components (date pickers, charts)
+- Team prefers pre-built components
+- Rapid prototyping is priority
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 🤝 Contributing
+
+1. Follow existing code structure
+2. Use StyleSheet for all styling
+3. Add TODO comments for API integration
+4. Test on both platforms
+5. Update documentation
+
+## 📄 License
+
+Educational project for Software Engineering course at University of Buea.
+
+
+**Note**: This is a simplified version using only React Native's built-in styling. The app is fully functional and ready for backend integration. All screens are implemented with consistent styling and navigation.
+\`\`\`
+
+
