@@ -22,7 +22,7 @@ A React Native mobile application for monitoring electricity consumption and rep
 
 ## 📁 Project Structure
 
-\`\`\`
+```bash
 src/
 ├── components/          # Reusable components
 │   ├── Header.tsx      # Simple header with back button
@@ -43,7 +43,7 @@ src/
 │   ├── ChangeEmailScreen.tsx
 │   ├── ChangePasswordScreen.tsx
 │   └── AccountSecurityScreen.tsx
-\`\`\`
+```
 
 ## 🚀 Quick Setup
 
